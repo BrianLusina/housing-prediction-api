@@ -3,13 +3,12 @@
 
 # Assumes that an image is built via `run_docker.sh`
 
-# Step 1:
-# Create dockerpath
-# dockerpath=<your docker ID/path>
+ID=${DOCKER_ID:-thelusina}
+IMAGE=${DOCKER_IMAGE:-housing-prediction-api}
+TAG=${DOCKER_TAG:-latest}
 
-# Step 2:  
-# Authenticate & tag
+dockerpath=${ID}/${IMAGE}:${TAG}
+
 echo "Docker ID and Image: $dockerpath"
 
-# Step 3:
-# Push image to a docker repository
+docker push "$dockerpath"

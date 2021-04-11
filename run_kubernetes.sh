@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 
-# This tags and uploads an image to Docker Hub
+ID=${DOCKER_ID:-thelusina}
+IMAGE=${DOCKER_IMAGE:-housing-prediction-api}
+TAG=${DOCKER_TAG:-latest}
 
-# Step 1:
-# This is your Docker ID/path
-# dockerpath=<>
+dockerpath=${ID}/${IMAGE}:${TAG}
 
-# Step 2
-# Run the Docker Hub container with kubernetes
+kubectl run housing-prediction-api --image="$dockerpath"
 
+kubectl get pods
 
-# Step 3:
-# List kubernetes pods
-
-# Step 4:
-# Forward the container port to a host
-
+kubectl port-forward housing-prediction-api 8080:8080
