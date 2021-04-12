@@ -1,6 +1,6 @@
 # Housing Prediction Model API
 
-<include a CircleCI status badge, here>
+[![CircleCI](https://circleci.com/gh/BrianLusina/housing-prediction-api/tree/main.svg?style=shield)](https://app.circleci.com/pipelines/github/BrianLusina/housing-prediction-api)
 
 ## Project Overview
 
