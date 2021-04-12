@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/BrianLusina/housing-prediction-api/tree/main.svg?style=shield)](https://app.circleci.com/pipelines/github/BrianLusina/housing-prediction-api)
 
-## Project Overview
+## Overview
 
 Machine Learning Microservice API with a pre-trained, `sklearn` model that has been trained to predict housing prices 
 in Boston according to several features, such as average rooms in a home and data about highway access, 
@@ -58,13 +58,20 @@ virtualenv .venv
 source .venv/bin/activate
 ```
 
-* Run `make install` to install the necessary dependencies
+or you can do this with make:
 
-### Running `app.py`
+```bash
+make setup
+```
+
+* Run `make install` to install the necessary dependencies.
+
+### Running the application
 
 1. Standalone:  `python app.py`
 2. Run in Docker:  `./run_docker.sh`
 3. Run in Kubernetes:  `./run_kubernetes.sh`
+4. Build Docker Image `./build_docker.sh`
 
 ### Kubernetes Steps
 
