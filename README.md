@@ -72,3 +72,30 @@ source .venv/bin/activate
 * Setup and Configure Kubernetes locally
 * Create Flask app in Container
 * Run via kubectl
+
+## Built With
+
+* [Python](https://www.python.org/) - Programming language used
+* [Scikit Learn](https://sklearn.org/) - Module used for Machine Learning in Python
+* [Pip](https://pypi.org/project/pip/) - Dependency management
+
+## Contributing
+
+Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on our code of conduct, and the process for
+submitting pull requests to us. Also read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on our code of conduct.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see
+the [tags on this repository](https://github.com/Wyvarn/space-rocks/releases).
+
+## Authors
+
+* **Brian Lusina** - *Initial work* - [BrianLusina](https://github.com/BrianLusina)
+
+See also the list of [contributors](https://github.com/Wyvarn/space-rocks/graphs/contributors) who participated in this
+project.
