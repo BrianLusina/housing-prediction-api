@@ -30,6 +30,81 @@ executors:
       - image: python:<< pipeline.parameters.python-image-tag >>
     working_directory: << pipeline.parameters.workingdir >>
 
+commands:
+  build_docker_image:
+    description: Build Docker Image
+    parameters:
+      image:
+        description: Docker Image name
+        type: string
+      registry:
+        description: Docker Registry name
+        type: string
+
+    steps:
+      - setup_remote_docker:
+          version: 19.03.13
+
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Build application Docker image
+          command: |
+            export DOCKER_TAG=$($CIRCLE_SHA1 | cut -c1-7)
+            export DOCKER_REGISTRY=<< parameters.registry >>
+            make build-docker
+
+      - run:
+          name: Save application Docker image
+          command: |
+            docker save -o << parameters.image >>-image.tar << parameters.registry >>/<< parameters.image >>:$(echo $CIRCLE_SHA1 | cut -c1-7)
+
+      - store_artifacts:
+          path: ./<< parameters.image >>-image.tar
+          destination: << parameters.image >>-image.tar
+
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  push_docker_image:
+    description: Push Docker image to registry
+    parameters:
+      tag:
+        type: string
+        description: Docker tag
+        default: latest
+      image:
+        description: Docker image name
+        type: string
+      registry:
+        description: Docker registry name
+        type: string
+
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Load application Docker image
+          command: |
+            docker load --input << parameters.image >>-image.tar
+
+      - run:
+          name: Tag docker image
+          command: |
+            docker tag << parameters.registry >>/<< parameters.image >>:$(echo $CIRCLE_SHA1 | cut -c1-7) << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>
+            docker tag << parameters.registry >>/<< parameters.image >>:$(echo $CIRCLE_SHA1 | cut -c1-7) << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>-$(echo $CIRCLE_SHA1 | cut -c1-7)
+
+      - run:
+          name: Push application Docker image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>-$(echo $CIRCLE_SHA1 | cut -c1-7)
+            docker push << parameters.registry >>/<< parameters.image >>:<< parameters.tag >>
+
 jobs:
   dependencies:
     executor: python-executor
@@ -75,44 +150,35 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: install dependencies
+          name: Lint
           command: |
             . .venv/bin/activate
             make lint
 
-  build:
+  build_docker_image:
     executor: docker-executor
     steps:
-      - checkout
+      - build_docker_image:
+          image: housing-prediction-api
+          registry: $DOCKER_REGISTRY
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+  push_latest:
+    executor: docker-executor
+    steps:
+      - push_docker_image:
+          tag: latest
+          image: housing-prediction-api
+          registry: $DOCKER_REGISTRY
+
+  publish_release:
+    executor: node-executor
+    steps:
+      - attach_workspace:
+          at: .
 
       - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-            # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
-
-      - save_cache:
-          paths:
-            - .venv
-          key: v1-dependencies-{{ checksum "requirements.txt" }}
-
-      # run lint!
-      - run:
-          name: run lint
-          command: |
-            . venv/bin/activate
-            make lint
+          name: Publish release
+          command: npx semantic-release
 
 workflows:
   version: 2
@@ -120,13 +186,13 @@ workflows:
     jobs:
       - dependencies
 
-      - build:
+      - lint:
           requires:
             - dependencies
 
       - build_docker_image:
           requires:
-            - build
+            - lint
 
       - push_latest:
           context: thelusina-context
