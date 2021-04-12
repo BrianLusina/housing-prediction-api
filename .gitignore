@@ -390,3 +390,4 @@ fabric.properties
 .envrc
 !bin
 bin/hadolint
+!scripts

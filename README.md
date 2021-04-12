@@ -69,9 +69,9 @@ make setup
 ### Running the application
 
 1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
-4. Build Docker Image `./build_docker.sh`
+2. Run in Docker:  `./scripts/run_docker.sh`
+3. Run in Kubernetes:  `./scripts/run_kubernetes.sh`
+4. Build Docker Image `./scripts/build_docker.sh`
 
 ### Kubernetes Steps
 

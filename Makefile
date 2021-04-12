@@ -26,10 +26,10 @@ lint:
 	pylint --disable=R,C,W1203 app.py
 
 build-docker:
-	./build_docker.sh
+	./scripts/build_docker.sh
 
 push-docker:
-	./upload_docker.sh
+	./scripts/upload_docker.sh
 
 # See https://circleci.com/docs/2.0/local-cli/#processing-a-config
 validate-circleci:
