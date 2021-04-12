@@ -388,3 +388,5 @@ fabric.properties
 # Cython debug symbols
 
 .envrc
+!bin
+bin/hadolint

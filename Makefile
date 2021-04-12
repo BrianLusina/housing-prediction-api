@@ -1,5 +1,8 @@
 # Create python virtualenv & source it
 setup:
+	wget -O ./bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+	chmod +x ./bin/hadolint
+
 	python3 -m venv .venv
 	source .venv/bin/activate
 
@@ -12,10 +15,10 @@ test:
 	python -m pytest -vv --cov=myrepolib tests/*.py
 	python -m pytest --nbval notebook.ipynb
 
-# See local hadolint install instructions:   https://github.com/hadolint/hadolint
+# See local hadolint install instructions: https://github.com/hadolint/hadolint
 # This is linter for Dockerfiles
 lint-docker:
-	hadolint Dockerfile
+	./bin/hadolint Dockerfile
 
 # Python source code linter: https://www.pylint.org/
 # This should be run from inside a virtualenv
