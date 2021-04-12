@@ -153,7 +153,11 @@ jobs:
             chmod +x /bin/hadolint
 
       - run:
-          name: Lint
+          name: Lint Dockerfile
+          command: make lint-docker
+
+      - run:
+          name: Lint Application
           command: |
             . .venv/bin/activate
             make lint
