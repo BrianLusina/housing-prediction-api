@@ -13,6 +13,7 @@ updates:
     labels:
       - "dependencies"
       - "pip"
+      - "python"
     assignees:
       - dependabot
     reviewers:
