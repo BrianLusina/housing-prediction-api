@@ -121,12 +121,8 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python3 -m venv .venv
-            . .venv/bin/activate
+            make setup
             make install
-            # Install hadolint
-            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
-            chmod +x /bin/hadolint
 
       - save_cache:
           paths:
@@ -150,9 +146,15 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Install Hadolint
+          command: |
+            wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64 &&\
+            chmod +x /bin/hadolint
+
+      - run:
           name: Lint
           command: |
-            . .venv/bin/activate
+            make setup
             make lint
 
   build_docker_image:
