@@ -51,7 +51,7 @@ commands:
       - run:
           name: Build application Docker image
           command: |
-            docker build -t << parameters.registry >>/<< parameters.image >>:<< $(echo $CIRCLE_SHA1 | cut -c1-7) >> .
+            docker build -t << parameters.registry >>/<< parameters.image >>:$(echo $CIRCLE_SHA1 | cut -c1-7) .
 
       - run:
           name: Save application Docker image
