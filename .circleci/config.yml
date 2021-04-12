@@ -53,7 +53,7 @@ commands:
           command: |
             export DOCKER_TAG=$($CIRCLE_SHA1 | cut -c1-7)
             export DOCKER_REGISTRY=<< parameters.registry >>
-            make build-docker
+            ./build_docker.sh
 
       - run:
           name: Save application Docker image
