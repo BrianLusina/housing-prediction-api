@@ -18,5 +18,5 @@ scipy==1.7.1
 six==1.16.0
 threadpoolctl==3.0.0
 toml==0.10.2
-Werkzeug==2.0.1
+Werkzeug==2.0.2
 wrapt==1.13.1
