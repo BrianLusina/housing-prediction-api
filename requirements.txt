@@ -19,4 +19,4 @@ six==1.16.0
 threadpoolctl==3.1.0
 toml==0.10.2
 Werkzeug==2.1.1
-wrapt==1.14.0
+wrapt==1.14.1
