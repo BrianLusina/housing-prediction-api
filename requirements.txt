@@ -9,7 +9,7 @@ lazy-object-proxy==1.9.0
 MarkupSafe==2.1.3
 mccabe==0.7.0
 numpy==1.26.2
-pylint==3.0.2
+pylint==3.0.3
 pandas==2.1.3
 python-dateutil==2.8.2
 pytz==2023.3.post1
