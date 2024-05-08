@@ -1,10 +1,10 @@
-astroid==3.1.0
+astroid==3.2.0
 Flask==3.0.3
 Click==8.1.7
 isort==5.13.2
 itsdangerous==2.2.0
 Jinja2==3.1.4
-joblib==1.4.0
+joblib==1.4.2
 lazy-object-proxy==1.10.0
 MarkupSafe==2.1.5
 mccabe==0.7.0
@@ -18,5 +18,5 @@ scipy==1.13.0
 six==1.16.0
 threadpoolctl==3.5.0
 toml==0.10.2
-Werkzeug==3.0.2
+Werkzeug==3.0.3
 wrapt==1.16.0
