@@ -12,7 +12,7 @@ numpy==2.5.1
 pylint==4.0.6
 pandas==3.0.5
 python-dateutil==2.9.0.post0
-pytz==2026.2
+pytz==2026.3.post1
 scikit-learn==0.20.3
 scipy==1.18.0
 six==1.17.0
